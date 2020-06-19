@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const bcrypt = require('bcryptjs');
 
-const Users = require('../auth/auth-model.js');
+const Users = require('./auth-model.js');
 
 // create new user
 router.post('/register', async (req, res) => {
@@ -22,7 +22,7 @@ router.post('/register', async (req, res) => {
 // get users
 router.get('/users', async (req, res) => {
     try {
-        const allUsers = await Users.getAllUsers();
+        const allUsers = await Users.getAllUsers()
         res.status(200).json(allUsers);
     } catch (error) {
         console.log(error);

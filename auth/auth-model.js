@@ -3,7 +3,8 @@ const db = require('../data/dbConfig.js');
 module.exports = {
     addUser,
     findUser,
-    getAllUsers
+    getAllUsers,
+    getAll
 }
 
 async function addUser(user) {
@@ -16,4 +17,10 @@ function findUser(username) {
 
 function getAllUsers() {
     return db('users')
+}
+
+function getAll() {
+    // return db('users').select('users.id as userID', 'trucks.*')
+    // .innerJoin('users_trucks', 'users.id', 'trucks.id')
+    // .innerJoin('trucks', 'trucks.id', 'users_trucks.trucks_id')
 }
