@@ -45,9 +45,14 @@ exports.up = function (knex) {
           .references("id")
           .inTable("trucks");
 
-        tbl.integer("id").primary(["users_id", "trucks_id"]);
+        tbl.primary(["users_id", "trucks_id"]);
       })
   );
 };
 
-exports.down = function (knex) {};
+exports.down = function (knex) {
+  return knex.schema
+    .dropTableIfExists("users_trucks")
+    .dropTableIfExists("trucks")
+    .dropTableIfExists("users");
+};
