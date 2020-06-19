@@ -1,26 +1,26 @@
-const db = require('../data/dbConfig.js');
+const db = require("../data/dbConfig.js");
 
 module.exports = {
-    addUser,
-    findUser,
-    getAllUsers,
-    getAll
-}
+  addUser,
+  findUser,
+  getAllUsers,
+  getAll,
+};
 
 async function addUser(user) {
-    const [id] = await db('users').insert(user, 'id')
+  const [id] = await db("users").insert(user, "id");
 }
 
 function findUser(username) {
-    return db('users').where(username).orderBy('id')
+  return db("users").where(username).orderBy("id");
 }
 
 function getAllUsers() {
-    return db('users')
+  return db("users");
 }
 
 function getAll() {
-    // return db('users').select('users.id as userID', 'trucks.*')
-    // .innerJoin('users_trucks', 'users.id', 'trucks.id')
-    // .innerJoin('trucks', 'trucks.id', 'users_trucks.trucks_id')
+  // return db('users').select('users.id as userID', 'trucks.*')
+  // .innerJoin('users_trucks', 'users.id', 'trucks.id')
+  // .innerJoin('trucks', 'trucks.id', 'users_trucks.trucks_id')
 }
