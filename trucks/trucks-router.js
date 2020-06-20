@@ -30,4 +30,30 @@ router.get("/", async (req, res) => {
   }
 });
 
+// add truck favorite
+router.post("/favorites", async (req, res) => {
+  const favTruckDetails = req.body;
+
+  try {
+    const favoriteTrucks = await Trucks.addTruckUserRelationship(
+      favTruckDetails
+    );
+    res.status(200).json(favoriteTrucks);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "No trucks found..." });
+  }
+});
+
+// read truck favorites
+router.get("/favorites", async (req, res) => {
+  try {
+    const allFavorites = await Trucks.getAllFavorites();
+    res.status(200).json(allFavorites);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "No trucks found..." });
+  }
+});
+
 module.exports = router;
