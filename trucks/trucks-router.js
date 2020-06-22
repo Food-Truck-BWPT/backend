@@ -29,7 +29,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // create new truck
-router.post("/operator", async (req, res) => {
+router.post("/", async (req, res) => {
   const newTruck = req.body;
 
   try {
@@ -44,7 +44,7 @@ router.post("/operator", async (req, res) => {
 });
 
 // delete a truck
-router.delete("/operator/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   const { id } = req.params;
 });
 
