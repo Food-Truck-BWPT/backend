@@ -12,7 +12,10 @@ router.post("/register", async (req, res) => {
 
   try {
     const saved = await Users.addUser(newUser);
-    res.status(201).json({ message: `User ${newUser.username} created` });
+    res.status(201).json({
+      message: `success`,
+      username: `${newUser.username}`,
+    });
   } catch (error) {
     console.log(error);
     res.status(404).json({ message: "User not created..." });
@@ -27,7 +30,11 @@ router.post("/login", async (req, res) => {
     const foundUser = await Users.findUser({ username }).first();
     if (foundUser && bcrypt.compareSync(password, foundUser.password)) {
       req.session.user = foundUser;
-      res.status(200).json({ message: `Welcome, ${foundUser.username}...` });
+      res.status(200).json({
+        username: `${foundUser.username}`,
+        userId: `${foundUser.id}`,
+        message: "success",
+      });
     } else {
       res.status(401).json({ message: "Invalid credentials" });
     }
