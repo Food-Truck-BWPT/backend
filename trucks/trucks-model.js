@@ -16,8 +16,8 @@ async function addTruckUserRelationship(truck) {
   const [id] = await db("users_trucks").insert(truck, "id");
 }
 
-function findTruck(id) {
-  return db("trucks").where(id).orderBy("id");
+function findTruck(truck) {
+  return db("trucks").where(truck).orderBy("id");
 }
 
 function getAllTrucks() {

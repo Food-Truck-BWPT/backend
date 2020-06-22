@@ -4,8 +4,32 @@ const bcrypt = require("bcryptjs");
 
 const Trucks = require("./trucks-model.js");
 
+// get trucks
+router.get("/", async (req, res) => {
+  try {
+    const allTrucks = await Trucks.getAllTrucks();
+    res.status(200).json(allTrucks);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "No trucks found..." });
+  }
+});
+
+// find a truck by ID
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const foundTruck = await Trucks.findTruck({ id }).first();
+    res.status(200).json(foundTruck);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: "Truck not found..." });
+  }
+});
+
 // create new truck
-router.post("/", async (req, res) => {
+router.post("/operator", async (req, res) => {
   const newTruck = req.body;
 
   try {
@@ -19,15 +43,9 @@ router.post("/", async (req, res) => {
   }
 });
 
-// get trucks
-router.get("/", async (req, res) => {
-  try {
-    const allTrucks = await Trucks.getAllTrucks();
-    res.status(200).json(allTrucks);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: "No trucks found..." });
-  }
+// delete a truck
+router.delete("/operator/:id", (req, res) => {
+  const { id } = req.params;
 });
 
 // add truck favorite
