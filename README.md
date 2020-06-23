@@ -5,8 +5,9 @@
 | Method | Endpoint           | Description                                                                                                                                                                                           |
 | ------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | GET    | /api/users         | Responds with an array of users                                                                                                                                                                       |
-| PUT    | /api/users\*       | **\***                                                                                                                                                                                                |
-| DELETE | /api/users\*       | **\***                                                                                                                                                                                                |
+| GET    | /api/users/:id\*   | **\***                                                                                                                                                                                                |
+| PUT    | /api/users/:id\*   | **\***                                                                                                                                                                                                |
+| DELETE | /api/users/:id\*   | **\***                                                                                                                                                                                                |
 | GET    | /api/trucks        | Will return an array of all trucks                                                                                                                                                                    |
 | POST   | /api/trucks        | **Requires authentication.** A successful request will return a message that the truck has been created. The only required field is `name`.                                                           |
 | PUT    | /api/trucks/:id\*  | **Requires authentication.** Pass the `id` of the trucks as a parameter and pass an object with the updated `key: value` pairs                                                                        |
@@ -16,7 +17,7 @@
 
 _The routes that are protected can be further restricted to certain users by checking for the `isVendor` property on the user object before executing your api request_
 
-_NOTE: Authenticated routes will be left open until further notice_
+_NOTE: Authenticated routes will be left open until development is finalized_
 
 ## Data Structure
 

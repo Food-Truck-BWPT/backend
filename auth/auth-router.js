@@ -33,6 +33,7 @@ router.post("/login", async (req, res) => {
       res.status(200).json({
         username: `${foundUser.username}`,
         userId: `${foundUser.id}`,
+        isVendor: `${foundUser.isVendor}`,
         message: "success",
       });
     } else {
