@@ -8,6 +8,7 @@ module.exports = {
   getAllTrucks,
   addTruckUserRelationship,
   getAllFavorites,
+  deleteTruck,
 };
 
 async function addTruck(truck) {
@@ -35,4 +36,8 @@ function updateTruck(id, changes) {
     .where("id", id)
     .update(changes)
     .then((res) => console.log(res));
+}
+
+function deleteTruck(truckID) {
+  return db("trucks").where("id", truckID).del();
 }

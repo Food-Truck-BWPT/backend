@@ -49,7 +49,7 @@ router.put("/:id", restricted, async (req, res) => {
 
   try {
     const updateTruck = await Trucks.updateTruck(id, updates);
-    res.status(201).json(updateTruck);
+    res.status(201).json({ message: `Truck ${id} updated` });
   } catch (error) {
     console.log(error);
     res.status(404).json({ message: "Truck not updated..." });
@@ -57,8 +57,16 @@ router.put("/:id", restricted, async (req, res) => {
 });
 
 // delete a truck
-router.delete("/:id", restricted, (req, res) => {
+router.delete("/:id", restricted, async (req, res) => {
   const { id } = req.params;
+
+  try {
+    const deleteTruck = await Trucks.deleteTruck(id);
+    res.status(201).json({ message: `Truck ${id} deleted` });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: "Truck not updated" });
+  }
 });
 
 // add truck favorite

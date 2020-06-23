@@ -2,29 +2,41 @@
 
 #### ROOT DATABASE URL = https://food-truckr-app.herokuapp.com
 
-## Routes
+## <- AUTH ->
 
 | Method | Endpoint           | Description                                                                                                                                                                                                 |
 | ------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GET    | /api/users         | Responds with an array of users                                                                                                                                                                             |
-| GET    | /api/users/:id\*   | **\***                                                                                                                                                                                                      |
-| PUT    | /api/users/:id\*   | **\***                                                                                                                                                                                                      |
-| DELETE | /api/users/:id\*   | **\***                                                                                                                                                                                                      |
-| GET    | /api/trucks        | Will return an array of all trucks                                                                                                                                                                          |  |
-| POST   | /api/trucks        | **Requires authentication.** A successful request will return a message that the truck has been created. The only required field is `name`.                                                                 |
-| GET    | /api/trucks/:id    | Pass in the `id` of a truck. If found, the api will respond with a truck object. Otherwise you'll get an error message which you can use to display.                                                        |
-| PUT    | /api/trucks/:id    | **Requires authentication.** Pass in the `id` of a truck to the request url. Send an object - in the `req.body` - with the desired changes to that truck object.                                            |
-| DELETE | /api/trucks/:id\*  | **Requires authentication.**                                                                                                                                                                                |
 | POST   | /api/auth/register | Creates a `user` using the information sent inside the `body` of the request. **Hashes the password before saving the user to the database** Returns a `message` and the `username` of the registered user. |
 | POST   | /api/auth/login    | Successful login returns the values of the `username, userId, message, isVendor` for the user that was logged in                                                                                            |
 
-_The routes that are protected can be further restricted to certain users by checking for the `isVendor` property on the user object before executing your api request_
+### Responses
 
-_NOTE: Authenticated routes will be left open until development is finalized_
+### '/api/auth/register'
 
-## Data Structure
+    {
+        "message": "success",
+        "username": REGISTERED_USERNAME
+    }
 
-### '/api/users'
+### '/api/auth/login'
+
+    {
+        "username": LOGGED_IN_USERNAME,
+        "userId": LOGGED_IN_USERID,
+        "isVendor": BOOLEAN,
+        "message": "success"
+    }
+
+## <- USERS ->
+
+| Method | Endpoint           | Description                                                                                                                                                    |
+| ------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | /api/users         | Returns an array of users                                                                                                                                      |
+| GET    | /api/users/:id     | Pass in the `id` of a user. If found, the api will respond with a user object. Otherwise you'll get an error message which you can use to display.             |
+| PUT    | /api/users/:id     | **Requires authentication.** Pass in the `id` of a user to the request url. Send an object - in the `req.body` - with the desired changes to that user object. |
+| DELETE | /api/users/:id\*\* | **Requires authentication.** Pass in the `id` of the user to the request url. The response object will contain a json with a message object                    |
+
+#### DATA STRUCTURE
 
     [{
         "id": 1,
@@ -34,7 +46,17 @@ _NOTE: Authenticated routes will be left open until development is finalized_
         "isVendor": BOOLEAN
     }]
 
-### '/api/trucks'
+## <- TRUCKS ->
+
+| Method | Endpoint            | Description                                                                                                                                                      |
+| ------ | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | /api/trucks         | Returns an array of all trucks                                                                                                                                   |  |
+| POST   | /api/trucks         | **Requires authentication.** A successful request will return a message that the truck has been created. The only required field is `name`.                      |
+| GET    | /api/trucks/:id     | Pass in the `id` of a truck. If found, the api will respond with a truck object. Otherwise you'll get an error message which you can use to display.             |
+| PUT    | /api/trucks/:id     | **Requires authentication.** Pass in the `id` of a truck to the request url. Send an object - in the `req.body` - with the desired changes to that truck object. |
+| DELETE | /api/trucks/:id\*\* | **Requires authentication.** Pass in the `id` of the truck to the request url. The response object will contain a json with a message object                     |
+
+#### Data Structure
 
     [{
         "id": 1,
@@ -53,21 +75,3 @@ _NOTE: Authenticated routes will be left open until development is finalized_
         "next_arrivalTime": "11:00 AM",
         "next_departureTime": "6:00 PM"
     }]
-
-## API Auth Responses
-
-### '/api/auth/register'
-
-    {
-        "message": "success",
-        "username": REGISTERED_USERNAME
-    }
-
-### '/api/auth/login'
-
-    {
-        "username": LOGGED_IN_USERNAME,
-        "userId": LOGGED_IN_USERID,
-        "isVendor": BOOLEAN,
-        "message": "success"
-    }

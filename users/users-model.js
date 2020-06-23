@@ -4,6 +4,8 @@ module.exports = {
   findUser,
   getAllUsers,
   addUser,
+  updateUser,
+  deleteUser,
 };
 
 function findUser(username) {
@@ -16,4 +18,15 @@ function getAllUsers() {
 
 async function addUser(user) {
   const [id] = await db("users").insert(user, "id");
+}
+
+function updateUser(id, changes) {
+  return db("users")
+    .where("id", id)
+    .update(changes)
+    .then((res) => console.log(res));
+}
+
+function deleteUser(userID) {
+  return db("users").where("id", userID).del();
 }
