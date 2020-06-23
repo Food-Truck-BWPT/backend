@@ -1,8 +1,10 @@
 const db = require("../data/dbConfig.js");
+const { get } = require("./trucks-router.js");
 
 module.exports = {
   addTruck,
   findTruck,
+  updateTruck,
   getAllTrucks,
   addTruckUserRelationship,
   getAllFavorites,
@@ -26,4 +28,11 @@ function getAllTrucks() {
 
 function getAllFavorites() {
   return db("users_trucks");
+}
+
+function updateTruck(id, changes) {
+  return db("trucks")
+    .where("id", id)
+    .update(changes)
+    .then((res) => console.log(res));
 }
