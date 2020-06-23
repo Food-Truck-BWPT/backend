@@ -1,8 +1,7 @@
 const router = require("express").Router();
 
-const bcrypt = require("bcryptjs");
-
 const Trucks = require("./trucks-model.js");
+const restricted = require("../auth/authenticate-middleware.js");
 
 // get trucks
 router.get("/", async (req, res) => {
@@ -29,7 +28,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // create new truck
-router.post("/", async (req, res) => {
+router.post("/", restricted, async (req, res) => {
   const newTruck = req.body;
 
   try {
@@ -43,9 +42,31 @@ router.post("/", async (req, res) => {
   }
 });
 
-// delete a truck
-router.delete("/:id", (req, res) => {
+// update a truck
+router.put("/:id", restricted, async (req, res) => {
   const { id } = req.params;
+  const updates = req.body;
+
+  try {
+    const updateTruck = await Trucks.updateTruck(id, updates);
+    res.status(201).json({ message: `Truck ${id} updated` });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: "Truck not updated..." });
+  }
+});
+
+// delete a truck
+router.delete("/:id", restricted, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleteTruck = await Trucks.deleteTruck(id);
+    res.status(201).json({ message: `Truck ${id} deleted` });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: "Truck not updated" });
+  }
 });
 
 // add truck favorite
