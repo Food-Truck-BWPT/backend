@@ -1,19 +1,21 @@
 # Food Truck BWPT Backend
 
+#### ROOT DATABASE URL = https://food-truckr-app.herokuapp.com
+
 ## Routes
 
-| Method | Endpoint           | Description                                                                                                                                                                                           |
-| ------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GET    | /api/users         | Responds with an array of users                                                                                                                                                                       |
-| GET    | /api/users/:id\*   | **\***                                                                                                                                                                                                |
-| PUT    | /api/users/:id\*   | **\***                                                                                                                                                                                                |
-| DELETE | /api/users/:id\*   | **\***                                                                                                                                                                                                |
-| GET    | /api/trucks        | Will return an array of all trucks                                                                                                                                                                    |
-| POST   | /api/trucks        | **Requires authentication.** A successful request will return a message that the truck has been created. The only required field is `name`.                                                           |
-| PUT    | /api/trucks/:id\*  | **Requires authentication.** Pass the `id` of the trucks as a parameter and pass an object with the updated `key: value` pairs                                                                        |
-| DELETE | /api/trucks/:id\*  | **Requires authentication.** Will delete a truck based on the id pased                                                                                                                                |
-| POST   | /api/auth/register | Creates a `user` using the information sent inside the `body` of the request. **Hashes the password before saving the user to the database**                                                          |
-| GET    | /api/auth/login    | If the user is logged in, respond with an array of all the users contained in the database. If the user is not logged in respond with the correct status code and the message: 'You shall not pass!'. |
+| Method | Endpoint           | Description                                                                                                                                                                                                 |
+| ------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | /api/users         | Responds with an array of users                                                                                                                                                                             |
+| GET    | /api/users/:id\*   | **\***                                                                                                                                                                                                      |
+| PUT    | /api/users/:id\*   | **\***                                                                                                                                                                                                      |
+| DELETE | /api/users/:id\*   | **\***                                                                                                                                                                                                      |
+| GET    | /api/trucks        | Will return an array of all trucks                                                                                                                                                                          |
+| POST   | /api/trucks        | **Requires authentication.** A successful request will return a message that the truck has been created. The only required field is `name`.                                                                 |
+| PUT    | /api/trucks/:id\*  | **Requires authentication.**                                                                                                                                                                                |
+| DELETE | /api/trucks/:id\*  | **Requires authentication.**                                                                                                                                                                                |
+| POST   | /api/auth/register | Creates a `user` using the information sent inside the `body` of the request. **Hashes the password before saving the user to the database** Returns a `message` and the `username` of the registered user. |
+| POST   | /api/auth/login    | Successful login returns the values of the `username, userId, message, isVendor` for the user that was logged in                                                                                            |
 
 _The routes that are protected can be further restricted to certain users by checking for the `isVendor` property on the user object before executing your api request_
 
@@ -28,14 +30,7 @@ _NOTE: Authenticated routes will be left open until development is finalized_
         "username": "testDiner01",
         "email": "testDiner01@test.com",
         "password": "$2a$12$/w3mfO47K2B8MU/vIBYA/.FXoD86aBHVYM/rC30O05aaFLlQhldnO",
-        "isVendor": false
-    },
-    {
-        "id": 2,
-        "username": "testDiner02",
-        "email": "testDiner02@test.com",
-        "password": "$2a$12$riIqiKRPV0vNRPeipu/8YOci1roKsIe8rctuIXhfawdftOf53jzGy",
-        "isVendor": true
+        "isVendor": BOOLEAN
     }]
 
 ### '/api/trucks'
@@ -72,5 +67,6 @@ _NOTE: Authenticated routes will be left open until development is finalized_
     {
         "username": LOGGED_IN_USERNAME,
         "userId": LOGGED_IN_USERID,
+        "isVendor": BOOLEAN,
         "message": "success"
     }

@@ -13,6 +13,17 @@ router.get("/", async (req, res) => {
   }
 });
 
-// find user by id
+// find a user by ID
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const foundUser = await Users.findUser({ id }).first();
+    res.status(200).json(foundUser);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: "User not found..." });
+  }
+});
 
 module.exports = router;
