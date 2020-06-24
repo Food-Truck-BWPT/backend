@@ -34,6 +34,8 @@
         "username": USERNAME,
         "isVendor": BOOLEAN,
         "token": TOKEN
+
+        * the token should be set in the headers of each request using an object. ex: { authorization: token } *
     }
 
 ## <- USERS ->
