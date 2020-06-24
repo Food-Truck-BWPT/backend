@@ -30,12 +30,7 @@ router.post("/login", async (req, res) => {
     const foundUser = await Users.findUser({ username }).first();
     if (foundUser && bcrypt.compareSync(password, foundUser.password)) {
       req.session.user = foundUser;
-      res.status(200).json({
-        username: `${foundUser.username}`,
-        userId: `${foundUser.id}`,
-        isVendor: `${foundUser.isVendor}`,
-        message: "success",
-      });
+      res.status(200).json(foundUser);
     } else {
       res.status(401).json({ message: "Invalid credentials" });
     }
