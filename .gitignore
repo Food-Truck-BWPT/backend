@@ -79,5 +79,5 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 node_modules
+data/foodtruckDB.db3
 
-.data/foodtruckDB.db3
