@@ -13,7 +13,7 @@ const session = require("express-session");
 const knexSessionStore = require("connect-session-knex")(session);
 
 const sessionConfig = {
-  name: "auth",
+  name: "user",
   secret: "super secret",
   cookie: {
     maxAge: 1000 * 60 * 60,
