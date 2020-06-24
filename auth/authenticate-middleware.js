@@ -1,7 +1,19 @@
+const jwt = require("jsonwebtoken");
+const secrets = require("../config/secrets.js");
+
 module.exports = (req, res, next) => {
-  if (req.session && req.session.user) {
-    next();
+  const token = req.headers.authorization;
+
+  if (token) {
+    jwt.verify(token, secrets.jwtSecret, (err, decodedToken) => {
+      if (err) {
+        res.status(401).json({ message: "Could not verify token" });
+      } else {
+        req.decodedToken = decodedToken;
+        next();
+      }
+    });
   } else {
-    res.status(401).json({ message: "You need to be logged in for that!" });
+    res.status(401).json({ message: "Could not verify token" });
   }
 };

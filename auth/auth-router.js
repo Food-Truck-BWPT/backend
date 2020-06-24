@@ -3,6 +3,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
 const Users = require("../users/users-model.js");
+const createToken = require("../config/token.js");
 
 // create new user
 router.post("/register", async (req, res) => {
@@ -29,8 +30,14 @@ router.post("/login", async (req, res) => {
   try {
     const foundUser = await Users.findUser({ username }).first();
     if (foundUser && bcrypt.compareSync(password, foundUser.password)) {
-      req.session.user = foundUser;
-      res.status(200).json(foundUser);
+      const token = createToken.generateToken(foundUser);
+      foundUser.password = null;
+      res.status(200).json({
+        userId: foundUser.id,
+        username: foundUser.username,
+        isVendor: foundUser.isVendor,
+        token,
+      });
     } else {
       res.status(401).json({ message: "Invalid credentials" });
     }
