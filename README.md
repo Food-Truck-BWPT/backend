@@ -9,22 +9,22 @@
 | POST   | /api/auth/register | Creates a `user` using the information sent inside the `body` of the request. **Hashes the password before saving the user to the database** Returns a `message` and the `username` of the registered user. |
 | POST   | /api/auth/login    | Successful login returns the values of the `username, userId, message, isVendor` for the user that was logged in                                                                                            |
 
-### Responses
+### DATA STRUCTURE
 
 ### '/api/auth/register'
 
     {
-        "message": "success",
-        "username": REGISTERED_USERNAME
+        "username": USERNAME,
+        "email": EMAIL,
+        "password": PASSWORD,
+        "isVendor": BOOLEAN,
     }
 
 ### '/api/auth/login'
 
     {
-        "username": LOGGED_IN_USERNAME,
-        "userId": LOGGED_IN_USERID,
-        "isVendor": BOOLEAN,
-        "message": "success"
+        "username": USERNAME,
+        "password": PASSWORD
     }
 
 ## <- USERS ->
@@ -56,7 +56,7 @@
 | PUT    | /api/trucks/:id     | **Requires authentication.** Pass in the `id` of a truck to the request url. Send an object - in the `req.body` - with the desired changes to that truck object. |
 | DELETE | /api/trucks/:id\*\* | **Requires authentication.** Pass in the `id` of the truck to the request url. The response object will contain a json with a message object                     |
 
-#### Data Structure
+#### DATA STRUCTURE
 
     [{
         "id": 1,

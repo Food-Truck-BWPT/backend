@@ -17,7 +17,7 @@ const sessionConfig = {
   secret: "super secret",
   cookie: {
     maxAge: 1000 * 60 * 60,
-    secure: false,
+    secure: process.env.SESSION || false,
     httpOnly: true,
   },
   resave: false,
