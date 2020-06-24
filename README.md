@@ -4,10 +4,10 @@
 
 ## <- AUTH ->
 
-| Method | Endpoint           | Description                                                                                                                                                                                                 |
-| ------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| POST   | /api/auth/register | Creates a `user` using the information sent inside the `body` of the request. **Hashes the password before saving the user to the database** Returns a `message` and the `username` of the registered user. |
-| POST   | /api/auth/login    | Successful login returns the values of the `username, userId, message, isVendor` for the user that was logged in                                                                                            |
+| Method | Endpoint           | Description                                                                                                                                                               |
+| ------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| POST   | /api/auth/register | Creates a `user` using the information sent inside the `body` of the request. **Hashes the password before saving the user to the database** Returns the registered user. |
+| POST   | /api/auth/login    | Pass in one object containing a `username` and `password`. Successful login returns `userId, username, isVendor, token`                                                   |
 
 ### DATA STRUCTURE
 
@@ -25,6 +25,15 @@
     {
         "username": USERNAME,
         "password": PASSWORD
+    }
+
+#### A SUCCESSFUL LOGIN SHOULD RETURN THIS JSON OBJECT
+
+    {
+        "userId": USERID,
+        "username": USERNAME,
+        "isVendor": BOOLEAN,
+        "token": TOKEN
     }
 
 ## <- USERS ->
