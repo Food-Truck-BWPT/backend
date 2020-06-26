@@ -69,13 +69,25 @@ router.delete("/:id", restricted, async (req, res) => {
   }
 });
 
-// add truck favorite
-router.post("/favorites", async (req, res) => {
-  const favTruckDetails = req.body;
+// get all favorites
+router.get("/favorites", async (req, res) => {
+  try {
+    const favoriteTrucks = await Trucks.getAllFavorites();
+    res.status(200).json(favoriteTrucks);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "No trucks found..." });
+  }
+});
+
+// SAVED TRUCKS
+// add saved truck
+router.post("/savedTrucks", restricted, async (req, res) => {
+  const useridAndTruckid = req.body;
 
   try {
     const favoriteTrucks = await Trucks.addTruckUserRelationship(
-      favTruckDetails
+      useridAndTruckid
     );
     res.status(200).json(favoriteTrucks);
   } catch (error) {
@@ -84,10 +96,12 @@ router.post("/favorites", async (req, res) => {
   }
 });
 
-// read truck favorites
-router.get("/favorites", async (req, res) => {
+// read savedTrucks
+router.get("/:id/savedTrucks", async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const allFavorites = await Trucks.getAllFavorites();
+    const allFavorites = await Trucks.getUsersFavorites(id);
     res.status(200).json(allFavorites);
   } catch (error) {
     console.log(error);
