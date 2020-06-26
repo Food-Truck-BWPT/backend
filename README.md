@@ -71,7 +71,6 @@
 
 #### DATA STRUCTURE
 
-
     [{
         "id": 1,
         "name": "Mack's BBQ Truck",
