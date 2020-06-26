@@ -59,13 +59,15 @@
 
 ## <- TRUCKS ->
 
-| Method | Endpoint            | Description                                                                                                                                                      |
-| ------ | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GET    | /api/trucks         | Returns an array of all trucks                                                                                                                                   |  |
-| POST   | /api/trucks         | **Requires authentication.** A successful request will return a message that the truck has been created. The only required field is `name`.                      |
-| GET    | /api/trucks/:id     | Pass in the `id` of a truck. If found, the api will respond with a truck object. Otherwise you'll get an error message which you can use to display.             |
-| PUT    | /api/trucks/:id     | **Requires authentication.** Pass in the `id` of a truck to the request url. Send an object - in the `req.body` - with the desired changes to that truck object. |
-| DELETE | /api/trucks/:id\*\* | **Requires authentication.** Pass in the `id` of the truck to the request url. The response object will contain a json with a message object                     |
+| Method | Endpoint                    | Description                                                                                                                                                                                        |
+| ------ | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | /api/trucks                 | Returns an array of all trucks                                                                                                                                                                     |  |
+| POST   | /api/trucks                 | **Requires authentication.** A successful request will return a message that the truck has been created. The only required field is `name`.                                                        |
+| GET    | /api/trucks/:id             | Pass in the `id` of a truck. If found, the api will respond with a truck object. Otherwise you'll get an error message which you can use to display.                                               |
+| PUT    | /api/trucks/:id             | **Requires authentication.** Pass in the `id` of a truck to the request url. Send an object - in the `req.body` - with the desired changes to that truck object.                                   |
+| DELETE | /api/trucks/:id\*\*         | **Requires authentication.** Pass in the `id` of the truck to the request url. The response object will contain a json with a message object                                                       |
+| GET    | /api/trucks/:id/savedTrucks | Pass in a dynamic `id` from a valid user to your request and you'll get a list that user's saved trucks. Can be myFavorites or myTrucks depending on `isVendor` property                           |  |
+| POST   | /api/trucks/savedTrucks     | **Requires authentication.** To create a new favorite truck for a user pass in the users `id` as `users_id` for the user and the id of the truck as `trucks_id`. There is an example object below. |
 
 #### DATA STRUCTURE
 
@@ -86,3 +88,12 @@
         "next_arrivalTime": "11:00 AM",
         "next_departureTime": "6:00 PM"
     }]
+
+#### ADDING SAVED TRUCKS OBJECT STRUCTURE
+
+##### Taking the data from the above data structure examples, sending this object would add the Mack's BBQ truck to testDiner01's savedTrucks list.
+
+    {
+        "users_id": "1", <- testDiner01
+        "trucks_id": "1" <- Mack's BBQ
+    }
